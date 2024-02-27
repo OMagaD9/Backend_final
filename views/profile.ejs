@@ -1,0 +1,53 @@
+<%- include('navbar') %>
+<div class="container mt-5">
+    <% if (typeof errorMessage !== 'undefined') { %>
+        <div class="alert alert-danger" role="alert"><%= errorMessage %></div>
+    <% } %>
+    
+    <% if (typeof successMessage !== 'undefined') { %>
+        <div class="alert alert-success" role="alert">
+            <%= successMessage %>
+        </div>
+    <% } %>
+
+    <h1><%=__("profile")%></h1>
+    <form action="/profile?_method=PUT" method="POST" class="mt-3">
+        <div class="form-group">
+            <label for="password"><%=__("current_password")%></label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="newPassword"><%=__("new_password")%></label>
+            <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword"><%=__("confirm_new_password")%></label>
+            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+        </div>
+        <button type="submit" class="btn btn-warning"><%=__("change_password")%></button>
+    </form>
+    <form action="/profile?_method=DELETE" method="POST" class="mt-3">
+        <button type="submit" class="btn btn-danger"><%=__("delete_account")%></button>
+    </form>
+
+    <!-- History section -->
+    <div class="row">
+        <div class="col-md-6">
+            <h3><%=__("manga_history")%></h3>
+            <ul>
+                <% userManga.forEach(manga => { %>
+                    <li><%= manga.search %> - <%= new Date(manga.createdAt).toLocaleString('en-US', { timeZone: 'UTC' }) %></li>
+                <% }) %>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h3><%=__("comics_history")%></h3>
+            <ul>
+                <% userComics.forEach(comics => { %>
+                    <li><%= comics.search %> - <%= new Date(comics.createdAt).toLocaleString('en-US', { timeZone: 'UTC' }) %></li>
+                <% }) %>
+            </ul>
+        </div>
+    </div>
+</div>
+<%- include('footer') %>

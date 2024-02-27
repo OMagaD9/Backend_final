@@ -1,0 +1,24 @@
+footer {
+  background-color: #343a40;
+  color: white;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.card_manga {
+  margin-bottom: 20px;
+}
+.card-body {
+  height: 250px;
+  overflow: hidden;
+}
+.bold-line {
+  border-top: 2px solid black;
+}
+.center{
+  text-align: center;
+}
+
+

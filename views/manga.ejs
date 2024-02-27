@@ -1,0 +1,27 @@
+<%- include('navbar') %>
+<div class="container mt-5">
+    <h1 class="mb-4"><%=__("manga")%></h1>
+    <form action="/manga" method="post">
+        <div class="form-group">
+            <label for="search"><%=__("search_manga")%>:</label>
+            <input type="text" class="form-control" id="search" name="search">
+        </div>
+        <button type="submit" class="btn btn-success"><%=__("search")%></button>
+    </form>
+    <div class="row mt-4">
+        <% mangaData.forEach((manga) => { %>
+            <div class="col-md-4">
+                <div class="card_manga">
+                    <img src="<%= manga.cover %>" class="card-img-top" alt="<%= manga.title %>">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= manga.title %></h5>
+                        <p class="card-text"><%=__("chapters")%>: <%= manga.chapters %></p>
+                        <p class="card-text"><%=__("genres")%>: <%= manga.genres.join(', ') %></p>
+                        <a href="<%= manga.provider_url %>" class="btn btn-success"><%=__("view_details")%></a>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>
+<%- include('footer') %>

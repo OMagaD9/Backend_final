@@ -1,0 +1,27 @@
+<%- include('navbar') %>
+<div class="container mt-5">
+    <h1 class="mb-4"><%= __("comics") %></h1>
+    <form action="/comics" method="post">
+        <div class="form-group">
+            <label for="search"><%= __("search_comics") %>:</label>
+            <input type="text" class="form-control" id="search" name="search">
+        </div>
+        <button type="submit" class="btn btn-success"><%= __("search") %></button>
+    </form>
+    <div class="row mt-4">
+        <% comicsData.forEach((comics) => { %>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <img src="<%= comics.image.original_url %>" class="card-img-top" alt="<%= comics.name %>">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= comics.name %></h5>
+                        <p class="card-text"><%= __("issue_number") %>: <%= comics.issue_number %></p>
+                        <p class="card-text"><%= __("cover_date") %>: <%= comics.cover_date %></p>
+                        <a href="<%= comics.site_detail_url %>" class="btn btn-success"><%= __("view_details") %></a>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>
+<%- include('footer') %>

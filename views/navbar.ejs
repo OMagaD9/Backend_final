@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comics and Manga</title>
+  <link rel="stylesheet" href="../public/main.css"> <!-- Link to your external CSS file -->
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Anta:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Add your custom styles or theme modifications here -->
+  <style>
+    body {
+      font-family: 'Anta', sans-serif; /* Apply the "Anta" font to the entire body */
+    }
+
+    .navbar {
+      background-color: #d1e7dd; /* Replace 'path/to/comics-background.jpg' with the actual path or URL of your background image */ /* Change the font color of navbar links */
+    }
+
+    .navbar-brand,
+    .navbar-nav .nav-link {
+      color: #ffffff; /* Change the font color of navbar links */
+    }
+
+    .navbar-toggler-icon {
+      background-color: #ffffff; /* Change the color of the navbar toggler icon */
+    }
+
+    /* Add any other custom styles based on your design preferences */
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success-subtle">
+    <a class="navbar-brand" href="#">OMagaD</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <% if (loggedIn) { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <%= __("main") %>
+              <span class="sr-only"></span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/manga">
+            <%= __("manga") %>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/comics">
+            <%= __("comics") %>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/profile">
+            <%= __("profile") %>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">
+            <%= __("logout") %>
+          </a>
+        </li>
+        <% } %>
+        <% if (admin) { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin">
+            <%= __("admin") %>
+          </a>
+        </li>
+        <% } %>
+        <% if (!loggedIn) { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">
+            <%= __("login") %>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/register">
+            <%= __("Register") %>
+          </a>
+        </li>
+        <% } %>
+      </ul>
+      <form id="languageForm" class="form-inline my-2 my-lg-0 language-dropdown">
+        <select id="languageSelect" class="custom-select mr-sm-2" name="lang">
+          <option value="en" <%=lang==='en' ? 'selected' : '' %>>en</option>
+          <option value="ru" <%=lang==='ru' ? 'selected' : '' %>>ru</option>
+          <option value="kz" <%=lang==='kz' ? 'selected' : '' %>>kz</option>
+          <option value="es" <%=lang==='es' ? 'selected' : '' %>>es</option>
+        </select>
+      </form>
+    </div>
+  </nav>
+
+  <script>
+    document.getElementById('languageSelect').addEventListener('change', async () => {
+      const lang = document.getElementById('languageSelect').value;
+      const response = await fetch('/language', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ lang })
+      });
+
+      if (response.ok) {
+        location.reload();
+      } else {
+        console.error('Failed to update language');
+      }
+    });
+  </script>
+
+</body>
+
+</html>
